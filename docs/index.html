@@ -13,9 +13,14 @@
         <input id="DNA">
         <br>
         <br>
+
+        <h3 id="DNARebound"></h3>
+        
         <button onclick="inputFunction()">Submit</button>
+        <h3 id="cDNA"></h3>
         <h1 id="mRNA"></h1>
         <h1 id="outputMessage"></h1>
+        <h2 id="codonCount"></h2>
         <br>
         <br>
     </div>
@@ -133,7 +138,11 @@
     
         function inputFunction() {
             let userInput = document.querySelector("#DNA");
+            let dnaOutput = document.querySelector("#DNARebound");
             let outputMessage = document.querySelector("#outputMessage");
+            let mRNAOutput = document.querySelector("#mRNA");
+            let cDNAOutput = document.querySelector("#cDNA");
+            let codonCount = document.querySelector("#codonCount");
 
             var DNA = userInput.value;
 
@@ -145,9 +154,11 @@
             
             var cDNA = getComplement(DNA);
 
+            var codonsNumber = 0;
 
             var nucleotideOutput = ""
             for (var i = 0; i < cDNA.length; i+=3 ){
+                codonsNumber+= 1;
                 var codon = cDNA.substring(i,i+3);
                 console.log(codon)
                 var aminoAcid = Nucleotides[codon] || "???";
@@ -164,9 +175,13 @@
             }
 
             
-            mRNA.innerHTML = "mRNA: " + hypenate(cDNA.replaceAll("T","U"));
+            dnaOutput.innerHTML = "DNA: " + hypenate(DNA);
+            //cDNAOutput.innerHTML = "Complementary DNA: " + hypenate(cDNA);
+            mRNAOutput.innerHTML = "mRNA: " + hypenate(cDNA.replaceAll("T","U"));
 
             outputMessage.innerHTML = "Nucleotides: " + nucleotideOutput;
+
+            codonCount.innerHTML = "Codon Count: " + codonsNumber;
 
         };
 
